@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
-import geopandas as gpd
-from shapely.geometry import Point
-import folium
 import pydeck as pdk
-import matplotlib.pyplot as plt
 
 column_names = ['lieu', 'lon', 'lat', "cadastre"]
 sism = pd.read_csv("sismique_grenoble_metropole.csv", sep=",", names=column_names)
@@ -58,24 +54,28 @@ deck_inond = pdk.Deck(
     tooltip={"html": "<b>Cadastre:</b> {cadastre}", "style": {"color": "white"}}
 )
 
-st.write("## Carte des séismes:")
+st.write("## Seismic issues map:")
 st.pydeck_chart(deck_sism)
 
 sism_count = sism['lieu'].value_counts()
 lieu_sism = sism_count.to_frame().sort_values(by="count", ascending=False)
-st.bar_chart(lieu_sism)
+st.write("### Number of issues by location:")
+st.bar_chart(lieu_sism, color=[215, 30, 30])
 
 sism_type = sism['cadastre'].value_counts()
 cadastre_sism = sism_type.to_frame().sort_values(by="count", ascending=False)
-st.bar_chart(cadastre_sism)
+st.write("### Number of issues by type:")
+st.bar_chart(cadastre_sism, color=[215, 30, 30])
 
-st.write("## Carte des inondations:")
+st.write("## Flood issues map:")
 st.pydeck_chart(deck_inond)
 
 inond_count = inond['lieu'].value_counts()
 lieu_inond = inond_count.to_frame().sort_values(by="count", ascending=False)
-st.bar_chart(lieu_inond)
+st.write("### Number of issues by location:")
+st.bar_chart(lieu_inond, color=[0, 0, 215])
 
 inond_type = inond['cadastre'].value_counts()
 cadastre_inond = inond_type.to_frame().sort_values(by="count", ascending=False)
-st.bar_chart(cadastre_inond)
+st.write("### Number of issues by type:")
+st.bar_chart(cadastre_inond, color=[0, 0, 215])
