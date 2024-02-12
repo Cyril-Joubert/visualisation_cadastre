@@ -8,7 +8,7 @@ sism = pd.read_csv("sismique_grenoble_metropole.csv", sep=",", names=column_name
 inond = pd.read_csv("inondations_grenoble_metropole.csv", sep=",", names=column_names)
 
 st.write("""
-# Data visualisation
+# Data visualization
 """)
 
 
