@@ -126,3 +126,13 @@ if __name__ == "__main__":
         tooltip={"html": "<b>Type de dechet collecté:</b> {type_dechet}<br><b>Commune: </b> {commune}", "style": {"color": "white"}}
     )
     st.pydeck_chart(updated_deck_sele)
+
+    container_count = sele['commune'].value_counts()
+    cont = container_count.to_frame().sort_values(by="count", ascending=False)
+    st.write("### Number of waste container by town:")
+    st.bar_chart(cont, color=[0, 215, 0])
+
+    type_count = sele['type_dechet'].value_counts()
+    type = type_count.to_frame().sort_values(by="count", ascending=False)
+    st.write("### Type of waste container:")
+    st.bar_chart(type, color=[0, 215, 0])
